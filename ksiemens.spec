@@ -5,7 +5,7 @@ Version:	0.2
 Release:	1
 License:	GPL
 Group:		X11/Applications
-Source0:	http://prdownloads.sourceforge.net/ksiemens/%{name}-%{version}.tar.gz
+Source0:	http://dl.sourceforge.net/ksiemens/%{name}-%{version}.tar.gz
 URL:		http://www.sourceforge.net/projects/ksiemens/
 BuildRequires:	kdelibs-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
