@@ -22,9 +22,11 @@ phones
 %prep
 
 %setup -q
-CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS" ./configure \
-                --with-qt-dir=/usr/lib/qt2 \
-                $LOCALFLAGS
+CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS" 
+./configure \
+	--with-qt-dir=/usr/lib/qt2 \
+	--prefix=%{_prefix} \
+	$LOCALFLAGS
 
 
 %build
