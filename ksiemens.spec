@@ -25,7 +25,7 @@ komórkowymi Siemens S25/35.
 %setup -q
 
 %build
-CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS"  \
+CFLAGS="%{rpmcflags}" CXXFLAGS="%{rpmcflags}"  \
 ./configure \
 	--with-qt-dir=/usr/lib/qt2 \
 	--prefix=%{_prefix} \
@@ -54,3 +54,4 @@ rm -rf $RPM_BUILD_DIR/ksiemens
 rm -rf ../file.list.ksiemens
 
 %files -f ../file.list.ksiemens
+%defattr(644,root,root,755)
