@@ -12,6 +12,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
 %define		_mandir		%{_prefix}/man
+%define		_htmldir	/usr/share/doc/kde/HTML
 
 %description
 KSiemens is a KDE application that manages Siemens S25/35 mobile
@@ -25,33 +26,29 @@ komórkowymi Siemens S25/35.
 %setup -q
 
 %build
-CFLAGS="%{rpmcflags}" CXXFLAGS="%{rpmcflags}"  \
-./configure \
-	--with-qt-dir=/usr/lib/qt2 \
-	--prefix=%{_prefix} \
-	$LOCALFLAGS
+kde_htmldir="%{_htmldir}"; export kde_htmldir
+CXXFLAGS="%{rpmcflags} -fno-exceptions -fno-rtti"
 
-# Setup for parallel builds
-numprocs=`egrep -c ^cpu[0-9]+ /proc/stat || :`
-if [ "$numprocs" = "0" ]; then
-  numprocs=1
-fi
+%configure2_13
 
-%{__make} -j$numprocs
+touch aclocal.m4 configure.in configure stamp-h.in Makefile.in ksiemens/Makefile.in
+
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__make} install-strip DESTDIR=$RPM_BUILD_ROOT
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
-cd $RPM_BUILD_ROOT
-find . -type d | sed '1,2d;s,^\.,\%attr(-\,root\,root) \%dir ,' > $RPM_BUILD_DIR/file.list.ksiemens
-find . -type f | sed 's,^\.,\%attr(-\,root\,root) ,' >> $RPM_BUILD_DIR/file.list.ksiemens
-find . -type l | sed 's,^\.,\%attr(-\,root\,root) ,' >> $RPM_BUILD_DIR/file.list.ksiemens
+mv -f $RPM_BUILD_ROOT%{_applnkdir}/{Applications,Utilities}
+
+%find_lang %{name} --with-kde --all-name
 
 %clean
-rm -rf $RPM_BUILD_ROOT/*
-rm -rf $RPM_BUILD_DIR/ksiemens
-rm -rf ../file.list.ksiemens
+rm -rf $RPM_BUILD_ROOT
 
-%files -f ../file.list.ksiemens
+%files -f %{name}.lang
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/*
+%{_datadir}/apps/ksiemens
+%{_applnkdir}/Utilities/ksiemens.desktop
