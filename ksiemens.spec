@@ -4,12 +4,12 @@ Name:		ksiemens
 Version:	0.2
 Release:	1
 License:	GPL
-Url:		http://www.sourceforge.net/projects/ksiemens
 Group:		X11/Applications
 Group(de):	X11/Applikationen
 Group(pl):	X11/Aplikacje
+Source0:	http://prdownloads.sourceforge.net/ksiemens/%{name}-%{version}.tar.gz
+URL:		http://www.sourceforge.net/projects/ksiemens/
 BuildRequires:	kdelibs-devel
-Source0:	%{name}-%{version}.tar.gz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
@@ -24,16 +24,15 @@ KSiemens jest aplikacj± dla KDE, s³u¿±c± do zarz±dzania telefonami
 komórkowymi Siemens S25/35.
 
 %prep
-
 %setup -q
-CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS" 
+
+%build
+CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS"  \
 ./configure \
 	--with-qt-dir=/usr/lib/qt2 \
 	--prefix=%{_prefix} \
 	$LOCALFLAGS
 
-
-%build
 # Setup for parallel builds
 numprocs=`egrep -c ^cpu[0-9]+ /proc/stat || :`
 if [ "$numprocs" = "0" ]; then
@@ -55,6 +54,5 @@ find . -type l | sed 's,^\.,\%attr(-\,root\,root) ,' >> $RPM_BUILD_DIR/file.list
 rm -rf $RPM_BUILD_ROOT/*
 rm -rf $RPM_BUILD_DIR/ksiemens
 rm -rf ../file.list.ksiemens
-
 
 %files -f ../file.list.ksiemens
