@@ -31,8 +31,6 @@ CXXFLAGS="%{rpmcflags} -fno-exceptions -fno-rtti"
 
 %configure2_13
 
-touch aclocal.m4 configure.in configure stamp-h.in Makefile.in ksiemens/Makefile.in
-
 %{__make}
 
 %install
