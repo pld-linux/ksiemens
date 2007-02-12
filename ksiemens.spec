@@ -1,5 +1,5 @@
 Summary:	KSiemens is a KDE application that manages Siemens S25/35 mobile phones
-Summary(pl):	KSiemens jest aplikacj± KDE, s³u¿±c± do zarz±dania telefonami Siemens S25/35
+Summary(pl.UTF-8):   KSiemens jest aplikacjÄ… KDE, sÅ‚uÅ¼Ä…cÄ… do zarzÄ…dania telefonami Siemens S25/35
 Name:		ksiemens
 Version:	0.2
 Release:	1
@@ -17,9 +17,9 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 KSiemens is a KDE application that manages Siemens S25/35 mobile
 phones.
 
-%description -l pl
-KSiemens jest aplikacj± dla KDE, s³u¿±c± do zarz±dzania telefonami
-komórkowymi Siemens S25/35.
+%description -l pl.UTF-8
+KSiemens jest aplikacjÄ… dla KDE, sÅ‚uÅ¼Ä…cÄ… do zarzÄ…dzania telefonami
+komÃ³rkowymi Siemens S25/35.
 
 %prep
 %setup -q
